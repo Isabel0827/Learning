@@ -1,0 +1,93 @@
+.Rhistory
+library(DMwR)
+data(algae)
+algae <- algae[-manyNAs(algae),]
+clean.algae <- knnImputation(algae,k=10)
+lm.a1 <- lm(a1~.,data=clean.algae[,1:12])
+summary(lm.a1)
+anova(lm.a1)
+lm2.a1 <- update(lm.a1,.~.-season)
+summary(lm2.a1)
+anova(lm.a1,lm2.a1)
+final.lm <- step(lm.a1)
+summary(final.lm)
+Sys.setlocale("LC_ALL","Chinese")
+summary(final.lm)
+savehistory()
+library(rpart)
+data(algae)
+algae <- algae[-manyNAs(algae),]
+rt.a1 <- rpart(a1~.,data=algae[,1:12])
+rt.a1
+prettyTree(rt.a1)
+printcp(rt.a1)
+rt2.a1 <- prune(rt.a1,cp=0.08)
+rt2.a1
+(rt.a1 <- rpartXse(a1~.,data=algae[,1:12]))
+first.tree <- rpart(a1~.,data=algae[,1:12])
+snip.rpart(first.tree,c(4,7))
+prettyTree(first.tree)
+snip.rpart(first.tree)
+lm.predictions.a1 <- predict(final.lm,clean.algae)
+rt.predictions.a1 <- predict(rt.a1,algae)
+data(GSPC)
+head(GSPC)
+library(xts)
+x1 <- xts(rnorm(100),seq(as.POSIXct("2000-01-01"),len=100,by="day"))
+x1[1:5]
+x2 <- xts(rnorm(100),seq(as.POSIXct("2000-01-01 13:00),len=100,by="min)))
+x2 <- xts(rnorm(100),seq(as.POSIXct("2000-01-01 13:00),len=100,by="min))
+x2 <- xts(rnorm(100),seq(as.POSIXct("2000-01-01 13:00),len=100,by="min""))
+x2 <- xts(rnorm(100),seq(as.POSIXct("2000-01-01 13:00),len=100,by="mi""))
+x2 <- xts(rnorm(100),seq(as.POSIXct("2000-01-01 13:00"),len=100,by="min"))
+x2[1:4]
+x3 <- xts(rnorm(3),as.Date(c("2005-01-01","2005-01-10","2005-01-12")))
+x3
+x1[as.POSIXct("2000-01-04")]
+x1["2000-01-05"]
+x1["20000105"]
+x1["2000-04"]
+x1["2000-03-27/"]
+x1["2000-02-26/2000-03-03"]
+x1["/20000103"]
+mts.vals <- matrix(round(rnorm(25),2),5,5)
+colnames(mts.vals) <- paste('ts',1:5,sep='')
+mts <- xts(mts.vals,as.POSIXct(c('2003-01-01','2003-01-04','2003-01-05','2003-01-06','2003-02-16')))
+mts
+mts['2003-01',c('ts2','ts5')]
+index(mts)
+coredata(mts)
+library(quantmod)
+getSymbols("^GSPC")
+getSymbols("^GSPC",from="1970-01-01",to="2009-09-15")
+colnames(GSPC) <- c("Open","High","Low","Close","Volume","AdjClose")
+setSymbolLookup(IBM=list(name='IBM',src='yahoo'),USDEUR=list(name='USD/EUR',src='oanda'))
+head(IBM)
+getSybols(c('IBM','USDEUR'))
+getsymbols(c('IBM','USDEUR'))
+getSymbols(c('IBM','USDEUR'))
+head(IBM)
+head(USDEUR)
+T.ind <- function(quotes,tgt.margin=0.025,n.days=10) {
+v <- apply(HLC(quotes),1,mean)
+r <- matrix(NA,ncol=n.days,nrow=NROW(quotes))
+for (x in 1:n.days) r[,x] <- Next(Delt(v,k=x),x)
+x <- apply(r,1,function(x) sum(x[x>tgt.margin|x<-tgt.margin]))
+if (is.xts(quotes))
+xts(x,time(quotes))
+else x
+}
+savehistory()
+T.ind <- function(quotes,tgt.margin=0.025,n.days=10) {
+v <- apply(HLC(quotes),1,mean)
+r <- matrix(NA,ncol=n.days,nrow=NROW(quotes))
+for (x in 1:n.days) r[,x] <- Next(Delt(v,k=x),x)
+x <- apply(r,1,function(x) sum(x[x>tgt.margin | x< -tgt.margin]))
+if (is.xts(quotes))
+xts(x,time(quotes))
+else x
+}
+T.ind()
+candleChart(last(GSPC,"3 month"),theme='white',TA=NULL)
+library(quantmod,DMwR)
+candleChart(last(GSPC,"3 month"),theme='white',TA=NULL)
