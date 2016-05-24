@@ -1,0 +1,24 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.7.1
+RVersion: 3.2.3
+Repos: CRAN=https://cran.rstudio.com/
+
+Package: e1071
+Source: CRAN
+Version: 1.6-7
+Hash: a8b909c7e06f7bfcbdbbad439799e25d
+
+Package: kernlab
+Source: CRAN
+Version: 0.9-24
+Hash: 37726d9307b8183493bb9187ea0cde8c
+
+Package: packrat
+Source: CRAN
+Version: 0.4.7-1
+Hash: 16ca16d36eb18d1d16113606ecc5c400
+
+Package: randomForest
+Source: CRAN
+Version: 4.6-12
+Hash: b37274857316c7b9431cc7f72aaffb77
